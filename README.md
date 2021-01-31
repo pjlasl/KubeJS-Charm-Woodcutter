@@ -10,26 +10,26 @@ You can then chose the javascript file based on the mod you have installed.
 
 ### Fabric
 
-Adorn
-- Oh the Biomes You'll Go
+- Adorn
+  - Oh the Biomes You'll Go
+  - Terrestria
+  - Traverse
+  - Woods and Mires 
+- Block Diversity
+- Biome Makeover
+- Cinderscapes
 - Terrestria
 - Traverse
-- Woods and Mires 
-Block Diversity
-Biome Makeover
-Cinderscapes
-Terrestria
-Traverse
-Wild Explorer
-Woods and Mires
+- Wild Explorer
+- Woods and Mires
 
 ### Forge
 
-Biome's O'Plenty
+- Biome's O'Plenty *(WIP)*
 
 ### Independent of Mod Loader
 
-Oh the Biomes You'll Go
+- Oh the Biomes You'll Go
 
 ## New Recipes
 
