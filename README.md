@@ -1,33 +1,41 @@
 # KubeJS-Charm-Woodcutter
-Several scripts for KubeJS that allow for other mod wood types to be used inside Charm's woodcutter
+These are independent scripts that add recipes to Charm's Woodcutter block.
 
-This started out as just a simple project to allow Logs to be added to the cutter and I expanded it to allow for other mods to be used.
+Choose the script according to the Mod Loader (Fabric or Forge) and the mod you may have installed.
 
-All the files are independent of each other. Chose the file that matches the mods you have installed.
+## Which files should I use?
 
-## Fabric vs Forge
+Charm.js and Minecraft.js are scripts you should load regardless of the Mod Loader you have installed.
+You can then chose the javascript file based on the mod you have installed.
 
-At this time the scripts are for Fabric mods. If there is a Forge equivalent, I did not test them against those mods.
+### Fabric
 
-## Instructions
+Adorn
+- Oh the Biomes You'll Go
+- Terrestria
+- Traverse
+- Woods and Mires 
+Block Diversity
+Biome Makeover
+Cinderscapes
+Terrestria
+Traverse
+Wild Explorer
+Woods and Mires
 
-### Dependents
+### Forge
 
-To use these you need the following mods installed
+Biome's O'Plenty
 
-1. Charm
-2. KubeJS
+### Independent of Mod Loader
 
-These should be downloaded from CurseForge. Follow the installation instructions for each mod.
+Oh the Biomes You'll Go
 
-### Using the scripts
+## New Recipes
 
-Download the scripts of your choice and add them to the /server_scripts directory under KubeJS
+I will be adding more as I come across mods that introduce new Biomes and wood types.
 
-Start the game and world of choice
+## Issues
 
-### In Action
+Report any issues in the issue tab
 
-With the Charm Woodcutter GUI open place a log or plank variant and see the items displayed.
-
-Have Fun!
