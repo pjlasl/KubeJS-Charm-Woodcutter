@@ -30,6 +30,8 @@ You can then chose the javascript file based on the mod you have installed.
 ### Independent of Mod Loader
 
 - Oh the Biomes You'll Go
+- Minecraft
+- Charm
 
 ## New Recipes
 
