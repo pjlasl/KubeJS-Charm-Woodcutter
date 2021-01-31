@@ -5,6 +5,10 @@ This started out as just a simple project to allow Logs to be added to the cutte
 
 All the files are independent of each other. Chose the file that matches the mods you have installed.
 
+## Fabric vs Forge
+
+At this time the scripts are for Fabric mods. If there is a Forge equivalent, I did not test them against those mods.
+
 ## Instructions
 
 ### Dependents
