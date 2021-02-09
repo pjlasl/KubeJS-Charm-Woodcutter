@@ -1,13 +1,11 @@
 onEvent('recipes', event => {
     
-    var modId = 'biomemakeover';
+    var modId = 'woods_and_mires';
     
     var modType   = 'minecraft:woodcutting';  
 
     var woods = [
-        {name: 'blighted_balsa', isLog: true, isStem: false, hasPlank: true},
-        {name: 'swamp_cypress', isLog: true, isStem: false, hasPlank: true},
-        {name: 'willow', isLog: true, isStem: false, hasPlank: true}
+        {name: 'pine', isLog: true, isStem: false, hasPlank: true}
     ]
 
     var baseItems = [{name: 'chest', count: 1, usePlank: false, useStem: true},
@@ -16,21 +14,17 @@ onEvent('recipes', event => {
                      {name: 'stick', count: 8, usePlank: true, useStem: true}
     ]
 
-    var items = [{name: 'boat', count: 1, usePlank: false, useStem: false},
-                 {name: 'button', count: 4, usePlank: true, useStem: true},
-                 {name: 'door', count: 3, usePlank: true, useStem: true},
+    var items = [{name: 'button', count: 4, usePlank: true, useStem: true},
                  {name: 'fence', count: 3, usePlank: true, useStem: true},
                  {name: 'fence_gate', count: 2, usePlank: true, useStem: true},
                  {name: 'planks', count: 4, usePlank: true, useStem: true},
                  {name: 'pressure_plate', count: 4, usePlank: true, useStem: true},
-                 {name: 'sign', count: 1, usePlank: true, useStem: true},
                  {name: 'slab', count: 8, usePlank: true, useStem: true},
                  {name: 'stairs', count: 4, usePlank: true, useStem: true},
-                 {name: 'stripped', count: 1, usePlank: true, useStem: true},
-                 {name: 'trapdoor', count: 2, usePlank: true, useStem: true}
+                 {name: 'stripped', count: 1, usePlank: true, useStem: true}
     ]
 
-    var modIds = ['charm','biomemakeover'];
+    var modIds = ['charm','woods_and_mires'];
 
     const IsModLoaded = (modId) => {
         if (!Platform.isLoaded(modId)) {
