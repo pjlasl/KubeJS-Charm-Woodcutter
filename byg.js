@@ -4,14 +4,55 @@ onEvent('recipes', event => {
     
     var modType   = 'minecraft:woodcutting';  
 
-    var logs = ['aspen','baobab','blue_enchanted','cherry','cika','cypress','ebony','ether','fir','green_enchanted','holly','jacaranda','lament',
-                'mahogany','mangrove','maple','nightshade','palm','pine','rainbow_eucalyptus','redwood','skyris','willow','witch_hazel','zelkova'];
-    var stems = ['bulbis','embur','sythian']    
-    var planks = logs.concat(stems);
+    var woods = [
+        {name: 'aspen', isLog: true, isStem: false, hasPlank: true},
+        {name: 'baobab', isLog: true, isStem: false, hasPlank: true},
+        {name: 'blue_enchanted', isLog: true, isStem: false, hasPlank: true},
+        {name: 'cherry', isLog: true, isStem: false, hasPlank: true},
+        {name: 'cika', isLog: true, isStem: false, hasPlank: true},
+        {name: 'cypress', isLog: true, isStem: false, hasPlank: true},
+        {name: 'ebony', isLog: true, isStem: false, hasPlank: true},
+        {name: 'ether', isLog: true, isStem: false, hasPlank: true},
+        {name: 'fir', isLog: true, isStem: false, hasPlank: true},
+        {name: 'green_enchanted', isLog: false, isStem: true, hasPlank: true},
+        {name: 'holly', isLog: true, isStem: false, hasPlank: true},
+        {name: 'jacaranda', isLog: true, isStem: false, hasPlank: true},
+        {name: 'lament', isLog: true, isStem: false, hasPlank: true},
+        {name: 'mahogany', isLog: true, isStem: false, hasPlank: true},
+        {name: 'mangrove', isLog: true, isStem: false, hasPlank: true},
+        {name: 'maple', isLog: true, isStem: false, hasPlank: true},
+        {name: 'nightshade', isLog: true, isStem: false, hasPlank: true},
+        {name: 'palm', isLog: true, isStem: false, hasPlank: true},
+        {name: 'pine', isLog: true, isStem: false, hasPlank: true},
+        {name: 'rainbow_eucalyptus', isLog: false, isStem: true, hasPlank: true},
+        {name: 'redwood', isLog: true, isStem: false, hasPlank: true},
+        {name: 'skyris', isLog: true, isStem: false, hasPlank: true},
+        {name: 'willow', isLog: true, isStem: false, hasPlank: true},
+        {name: 'witch_hazel', isLog: true, isStem: false, hasPlank: true},
+        {name: 'zelkova', isLog: true, isStem: false, hasPlank: true},
+        {name: 'bulbis', isLog: false, isStem: true, hasPlank: true},
+        {name: 'embur', isLog: false, isStem: true, hasPlank: true},
+        {name: 'sythian', isLog: false, isStem: true, hasPlank: true},
+    ]
 
-    var mItems = ['chest;1','bowl;4','ladder;3','stick;8'];
-    var lItems = ['button;4','door;3','fence;3','fence_gate;1','planks;4','pressure_plate;4','slab;4','stairs;4','stripped;1','trapdoor;2']
-    var pItems = [mItems[1],mItems[3],'trapdoor;1'];
+    var baseItems = [{name: 'chest', count: 1, usePlank: false, useStem: true},
+                     {name: 'bowl', count: 3, usePlank: true, useStem: true},
+                     {name: 'ladder', count: 3, usePlank: false, useStem: true},
+                     {name: 'stick', count: 8, usePlank: true, useStem: true}
+    ]
+
+    var items = [{name: 'crafting_table', count: 1, usePlank: false, useStem: true},
+                 {name: 'button', count: 4, usePlank: true, useStem: true},
+                 {name: 'door', count: 3, usePlank: true, useStem: true},
+                 {name: 'fence', count: 3, usePlank: true, useStem: true},
+                 {name: 'fence_gate', count: 2, usePlank: true, useStem: true},
+                 {name: 'planks', count: 4, usePlank: true, useStem: true},
+                 {name: 'pressure_plate', count: 4, usePlank: true, useStem: true},
+                 {name: 'slab', count: 8, usePlank: true, useStem: true},
+                 {name: 'stairs', count: 4, usePlank: true, useStem: true},
+                 {name: 'stripped', count: 1, usePlank: true, useStem: true},
+                 {name: 'trapdoor', count: 2, usePlank: true, useStem: true}
+    ]
 
     var modIds = ['charm','byg'];
 
@@ -39,65 +80,49 @@ onEvent('recipes', event => {
         })    
     }    
 
-    for(var i=0; i <= logs.length - 1; i++) {
+    woods.forEach(function(wood, index) {
         
-        var logType = logs[i] + '_log';
+        var woodType = '';
 
-        // converts log to minecraft items
-        for(var m=0; m <= mItems.length - 1; m++) {
-            var split = mItems[m].split(';');
-            multiCut(modId + ':' + logType, 'minecraft:' + split[0], parseInt(split[1]));
-        }
-
-        // converts log to specific items
-        for(var l=0; l <= lItems.length - 1; l++) {
-            var split = lItems[l].split(';');
-            if (split[0].indexOf('stripped') >= 0) {
-                multiCut(modId + ':' + logType, modId + ':' + split[0] + '_' + logType, parseInt(split[1]));
-            } else {
-                multiCut(modId + ':' + logType, modId + ':' + logs[i] + '_' + split[0], parseInt(split[1]));
-            }
-        }
-    }
-
-    for (var i=0; i <=stems.length - 1; i++) {
-
-        var stemType = '';
-
-        if (stems[i] === 'embur') {
-            stemType = 'embur_pedu';
+        if (wood.isLog) {
+            woodType = wood.name + '_log';
+        } else if(wood.name == 'embur') {
+            woodType = 'embur_pedu';
         } else {
-            stemType = stems[i] + '_stem';
-        }       
-
-        for(var m=0; m <= mItems.length - 1; m++) {
-            var split = mItems[m].split(';');
-            multiCut(modId + ':' + stemType, 'minecraft:' + split[0], parseInt(split[1]));
+            woodType = wood.name + '_stem';
         }
 
-        for(var l=0; l <= lItems.length - 1; l++) {
-            var split = lItems[l].split(';');
-            if (split[0].indexOf('stripped') >= 0) {
-                multiCut(modId + ':' + stemType, modId + ':' + split[0] + '_' + stemType, parseInt(split[1]));                
-            } else {
-                multiCut(modId + ':' + stemType, modId + ':' + stems[i] + '_' + split[0], parseInt(split[1]));                
-            }
-            
-        }
-    }
+        var modWoodType = modId + ':' + woodType;
 
-    for (var i=0; i <=planks.length - 1; i++) {
-        var plankType = planks[i] + '_planks';
+        baseItems.forEach(function(item, index) {
+            multiCut(modWoodType, 'minecraft:' + item.name, item.count);
 
-        for(var m=0; m <= pItems.length - 1; m++) {
-            var split = pItems[m].split(';');            
-            if (split[0].indexOf('trapdoor') >= 0) {
-                multiCut(modId + ':' + plankType, modId + ':' + planks[i] + '_' + split[0], parseInt(split[1]));
-            } else {
-                multiCut(modId + ':' + plankType, 'minecraft:' + split[0], parseInt(split[1]));
+            if (item.usePlank) {
+                multiCut(modId + ':' + wood.name + '_planks', 'minecraft:' + item.name, 1);
             }
-            
-        }   
-    }
+        })
+
+        items.forEach(function(item, index) {            
+            if (item.name == 'stripped') {
+                multiCut(modWoodType, modId + ':' + item.name + '_' + woodType, item.count);
+            } else {
+                if (item.name == 'stripped') {
+                    multiCut(modWoodType, modId + ':' + item.name + '_' + woodType, item.count);
+                } else {   
+                    
+                    if (wood.isStem && !item.useStem) {
+                        return
+                    } 
+
+                    multiCut(modWoodType, modId + ':' + wood.name + '_' + item.name, item.count);
+    
+                    if (item.usePlank) {
+                        multiCut(modId + ':' + wood.name + '_planks', modId + ':' + wood.name + '_' + item.name, item.count);
+                    }
+                }
+            }
+        })
+
+    })
     
 })
