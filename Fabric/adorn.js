@@ -14,9 +14,9 @@ onEvent('recipes', event => {
                  {name: 'warped', isLog: false, isStem: true, hasPlank: true},
     ]
 
-    var baseItems = [{name: 'platform', count: 2, usePlank: true, useStem: true},
-                     {name: 'post', count: 4, usePlank: true, useStem: true},
-                     {name: 'step', count: 4, usePlank: true, useStem: true}
+    var baseItems = [{name: 'platform', count: 2, usePlank: true, useStem: true, plankCount: 1},
+                     {name: 'post', count: 4, usePlank: true, useStem: true, plankCount: 2},
+                     {name: 'step', count: 4, usePlank: true, useStem: true, plankCount: 2}
     ]
 
     var modIds = ['charm','adorn'];
@@ -52,8 +52,8 @@ onEvent('recipes', event => {
         baseItems.forEach(function(item, index) {            
             multiCut(woodType, modId + ':' + wood.name + '_' + item.name, item.count);
 
-            if (item.usePlank) {
-                multiCut(wood.name + '_planks', modId + ':' + wood.name + '_' + item.name, 1);                
+            if (item.usePlank && item.plankCount > 0) {
+                multiCut(wood.name + '_planks', modId + ':' + wood.name + '_' + item.name, item.plankCount);                
             }
         })
 

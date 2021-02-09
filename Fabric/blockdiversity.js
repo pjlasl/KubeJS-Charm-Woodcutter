@@ -4,12 +4,21 @@ onEvent('recipes', event => {
     
     var modType   = 'minecraft:woodcutting';  
 
-    var logs = ['acacia','birch','dark_oak','jungle','oak','spruce'];
-    var stems = ['crimson','warped']       
-    var planks = logs.concat(stems);
+    var woods = [{name: 'acacia', isLog: true, isStem: false, hasPlank: true},
+                 {name: 'birch', isLog: true, isStem: false, hasPlank: true},
+                 {name: 'dark_oak', isLog: true, isStem: false, hasPlank: true},
+                 {name: 'jungle', isLog: true, isStem: false, hasPlank: true},
+                 {name: 'oak', isLog: true, isStem: false, hasPlank: true},
+                 {name: 'spruce', isLog: true, isStem: false, hasPlank: true},
+                 {name: 'crimson', isLog: false, isStem: true, hasPlank: true},
+                 {name: 'warped', isLog: false, isStem: true, hasPlank: true},
+    ]
 
-    var mItems = ['pillar;1','plate;32','qslab;6','qstairs;4'];
-    var pItems = ['plate;16','qslab;2','qstairs;1'];
+    var baseItems = [{name: 'pillar', count: 1, usePlank: false, useStem: true, plankCount: 0},
+                     {name: 'plate', count: 24, usePlank: true, useStem: true, plankCount: 6},
+                     {name: 'qslab', count: 6, usePlank: true, useStem: true, plankCount: 2},
+                     {name: 'qstairs', count: 4, usePlank: true, useStem: true, plankCount: 1},
+    ]
 
     var modIds = ['charm','blockdiversity'];
 
@@ -37,33 +46,18 @@ onEvent('recipes', event => {
         })    
     }    
 
-    for(var i=0; i <= logs.length - 1; i++) {
+    woods.forEach(function(wood, index) {
         
-        var logType = logs[i] + '_log';
+        var woodType = wood.isLog ? wood.name + '_log' : wood.name + '_stem';        
 
-        for(var m=0; m <= mItems.length - 1; m++) {
-            var split = mItems[m].split(';');
-            multiCut(logType, modId + ':' + logs[i] + '_' + split[0], parseInt(split[1]));
-        }        
-    }
+        baseItems.forEach(function(item, index) {            
+            multiCut(woodType, modId + ':' + wood.name + '_' + item.name, item.count);
 
-    for (var i=0; i <=stems.length - 1; i++) {
-        var stemType = stems[i] + '_stem';
+            if (item.usePlank && item.plankCount > 0) {
+                multiCut(wood.name + '_planks', modId + ':' + wood.name + '_' + item.name, item.plankCount);                
+            }
+        })
 
-        for(var m=0; m <= mItems.length - 1; m++) {
-            var split = mItems[m].split(';');
-            multiCut(stemType, modId + ':' + stems[i] + '_' + split[0], parseInt(split[1]));
-        }        
-    }
-
-    for(var i=0; i <= planks.length - 1; i++) {
-        
-        var plankType = planks[i] + '_planks';
-
-        for(var m=0; m <= pItems.length - 1; m++) {
-            var split = pItems[m].split(';');
-            multiCut(plankType, modId + ':' + logs[i] + '_' + split[0], parseInt(split[1]));
-        }        
-    }
+    })
     
 })
