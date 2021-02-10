@@ -2,14 +2,14 @@ onEvent('recipes', event => {
 
     var modType   = 'minecraft:woodcutting';  
 
-    var woods = [{name: 'acacia', isLog: true, isStem: false, hasPlank: true},
-                 {name: 'birch', isLog: true, isStem: false, hasPlank: true},
-                 {name: 'dark_oak', isLog: true, isStem: false, hasPlank: true},
-                 {name: 'jungle', isLog: true, isStem: false, hasPlank: true},
-                 {name: 'oak', isLog: true, isStem: false, hasPlank: true},
-                 {name: 'spruce', isLog: true, isStem: false, hasPlank: true},
-                 {name: 'crimson', isLog: false, isStem: true, hasPlank: true},
-                 {name: 'warped', isLog: false, isStem: true, hasPlank: true},
+    var woods = [{name: 'acacia', hasPlank: true, hasStripped: true, suffix: '_log'},
+                 {name: 'birch', hasPlank: true,  hasStripped: true, suffix: '_log'},
+                 {name: 'dark_oak', hasPlank: true, hasStripped: true, suffix: '_log'},
+                 {name: 'jungle', hasPlank: true, hasStripped: true, suffix: '_log'},
+                 {name: 'oak', hasPlank: true, hasStripped: true, suffix: '_log'},
+                 {name: 'spruce', hasPlank: true, hasStripped: true, suffix: '_log'},
+                 {name: 'crimson', hasPlank: true, hasStripped: true, suffix: '_stem'},
+                 {name: 'warped', hasPlank: true, hasStripped: true, suffix: '_stem'},
     ]
 
     var baseItems = [{name: 'chest', count: 1, usePlank: false, useStem: true},
@@ -43,9 +43,9 @@ onEvent('recipes', event => {
     }
 
     // Check for loaded Mods, exit if not present
-    for (var i=0; i <= modIds.length - 1; i++) {
-        if (!IsModLoaded(modIds[i])) return;
-    }
+    modIds.forEach(function(mod, index) {
+        if (!IsModLoaded(mod)) return;
+    })
 
     const multiCut = (woodType, item, count) => {
         event.custom({
@@ -60,26 +60,34 @@ onEvent('recipes', event => {
 
     woods.forEach(function(wood, index) {
         
-        var woodType = wood.isLog ? wood.name + '_log' : wood.name + '_stem';        
+        var woodType = wood.name + wood.suffix;            
         
         baseItems.forEach(function(item, index) {
             multiCut(woodType, 'minecraft:' + item.name, item.count);
 
-            if (item.usePlank) {
-                multiCut(wood.name + '_planks', 'minecraft:' + item.name, 1);
+            if (wood.hasStripped) {
+                multiCut('stripped_' + woodType, 'minecraft:' + item.name, item.count);
+            }
+
+            if (wood.hasPlank && item.usePlank && item.plankCount > 0) {
+                multiCut(wood.name + '_planks', 'minecraft:' + item.name, item.plankCount);
             }
         })
 
         items.forEach(function(item, index) {            
             if (item.name == 'stripped') {
                 multiCut(woodType, 'minecraft:' + item.name + '_' + woodType, item.count);
-            } else {
+            } else {                
 
                 if (wood.isStem && !item.useStem) {
                     return
                 } 
-                
-                multiCut(woodType, 'minecraft:' + wood.name + '_' + item.name, item.count);
+
+                if (wood.hasStripped) {
+                    multiCut('stripped_' + woodType, 'minecraft:' + wood.name + '_' + item.name, item.count);
+                } else {
+                    multiCut(woodType, 'minecraft:' + wood.name + '_' + item.name, item.count);
+                }
             }
         })
 
