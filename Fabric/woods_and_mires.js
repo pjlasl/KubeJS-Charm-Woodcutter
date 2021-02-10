@@ -35,9 +35,9 @@ onEvent('recipes', event => {
     }
 
     // Check for loaded Mods, exit if not present
-    for (var i=0; i <= modIds.length - 1; i++) {
-        if (!IsModLoaded(modIds[i])) return;
-    }
+    modIds.forEach(function(mod, index) {
+        if (!IsModLoaded(mod)) return;
+    })
 
     const multiCut = (woodType, item, count) => {
         event.custom({
