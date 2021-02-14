@@ -13,9 +13,9 @@ onEvent('recipes', event => {
     ]
 
     var baseItems = [{name: 'chest', count: 1, usePlank: false, useStem: true},
-                     {name: 'bowl', count: 3, usePlank: true, useStem: true},
+                     {name: 'bowl', count: 3, usePlank: true, useStem: true, plankCount: 1},
                      {name: 'ladder', count: 3, usePlank: false, useStem: true},
-                     {name: 'stick', count: 8, usePlank: true, useStem: true}
+                     {name: 'stick', count: 8, usePlank: true, useStem: true, plankCount: 1}
     ]
 
     var items = [{name: 'boat', count: 1, usePlank: false, useStem: false},
@@ -82,12 +82,14 @@ onEvent('recipes', event => {
                 if (wood.isStem && !item.useStem) {
                     return
                 } 
-
+				
+				multiCut(woodType, 'minecraft:' + wood.name + '_' + item.name, item.count);
+				
                 if (wood.hasStripped) {
-                    multiCut('stripped_' + woodType, 'minecraft:' + wood.name + '_' + item.name, item.count);
-                } else {
-                    multiCut(woodType, 'minecraft:' + wood.name + '_' + item.name, item.count);
+                    multiCut('stripped_' + woodType, 'minecraft:' + wood.name + '_' + item.name, item.count);                
                 }
+                
+                
             }
         })
 
